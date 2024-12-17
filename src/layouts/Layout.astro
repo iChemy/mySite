@@ -10,6 +10,7 @@ interface Props {
 const { lang = "en", title, description = "iChemy's web site" } = Astro.props;
 
 const pageTitle = title ? `iChemy | ${title}` : "iChemy";
+const ogpURL = new URL("/mySite/ogp.png", Astro.url.toString());
 ---
 
 <!doctype html>
@@ -32,12 +33,12 @@ const pageTitle = title ? `iChemy | ${title}` : "iChemy";
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
     <meta property="og:url" content={Astro.url.toString()} />
-    <meta property="og:image" content="/mySite/ogp.png" />
+    <meta property="og:image" content={ogpURL} />
 
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={pageTitle} />
     <meta name="twitter:description" content={description} />
-    <meta name="twitter:image" content="/mySite/ogp.png" />
+    <meta name="twitter:image" content={ogpURL} />
 
     <link rel="canonical" href={Astro.url.toString()} />
   </head>
