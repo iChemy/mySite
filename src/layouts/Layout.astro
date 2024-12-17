@@ -1,6 +1,5 @@
 ---
 import Navigation from "../components/Navigation.astro";
-import ogp from "../assets/ogp.png";
 
 interface Props {
   lang?: string;
@@ -33,12 +32,12 @@ const pageTitle = title ? `iChemy | ${title}` : "iChemy";
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
     <meta property="og:url" content={Astro.url.toString()} />
-    <meta property="og:image" content={ogp.src} />
+    <meta property="og:image" content="/mySite/ogp.png" />
 
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={pageTitle} />
     <meta name="twitter:description" content={description} />
-    <meta name="twitter:image" content={ogp.src} />
+    <meta name="twitter:image" content="/mySite/ogp.png" />
 
     <link rel="canonical" href={Astro.url.toString()} />
   </head>
