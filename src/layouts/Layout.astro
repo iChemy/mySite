@@ -1,6 +1,6 @@
 ---
 import Navigation from "../components/Navigation.astro";
-import ogp from "../assets/ogp.svg";
+import ogp from "../assets/ogp.png";
 
 interface Props {
   lang?: string;
@@ -8,7 +8,7 @@ interface Props {
   description?: string;
 }
 
-const { lang = "en", title, description } = Astro.props;
+const { lang = "en", title, description = "iChemy's web site" } = Astro.props;
 
 const pageTitle = title ? `iChemy | ${title}` : "iChemy";
 ---
