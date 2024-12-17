@@ -1,0 +1,121 @@
+---
+import background1 from "../assets/background1.svg";
+import background2 from "../assets/background2.svg";
+import background3 from "../assets/background3.svg";
+import background4 from "../assets/background4.svg";
+
+interface Props {
+  title: string;
+  src?: number;
+}
+
+const { title, src } = Astro.props;
+
+const srcNumberToSrcString = (src?: number): string => {
+  switch (src) {
+    case 1:
+      return background1.src;
+    case 2:
+      return background2.src;
+    case 3:
+      return background3.src;
+    case 4:
+      return background4.src;
+    default:
+      return background1.src;
+  }
+};
+---
+
+<header class:list={["hero"]}>
+  <div class:list={["bg"]}>
+    <img class:list={["bg-img"]} src={srcNumberToSrcString(src)} />
+  </div>
+  <h1 class:list={["title"]}>{title}</h1>
+</header>
+
+<style>
+  .hero {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 400px; /* ヒーローセクションの高さを設定 */
+    overflow: hidden;
+    background-color: #f8f9fa; /* 背景色を設定（必要に応じて変更） */
+  }
+
+  .hero .bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    z-index: 1; /* 背景がタイトルの下になるように */
+  }
+
+  .hero .bg-img {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 120%;
+    height: auto; /* アスペクト比を維持 */
+    transform: translate(-50%, -50%);
+    filter: blur(30px) brightness(1) contrast(1); /* ぼかし、明るさ、コントラストを調整 */
+    opacity: 0.8; /* 背景画像を少し薄くする */
+  }
+
+  .hero .title {
+    position: relative;
+    z-index: 2; /* 背景より前面に配置 */
+    font-size: 3rem; /* タイトルのサイズ */
+    font-weight: 700;
+    color: #333; /* タイトルの色 */
+    text-align: center;
+    margin: 0;
+    padding: 0 1rem;
+    text-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* タイトルの視認性を高める */
+    animation: fadeIn 1.5s ease-out;
+  }
+
+  /* ヒーロー全体にフェードインアニメーション */
+  .hero {
+  }
+
+  /* 背景画像がスライドするアニメーション */
+  /* @keyframes slideIn {
+    from {
+      opacity: 0;
+      transform: translateY(-20%);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  } */
+
+  /* タイトルのフェードインアニメーション */
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* レスポンシブデザイン */
+  @media (max-width: 768px) {
+    .hero {
+      height: 300px;
+    }
+
+    .hero .title {
+      font-size: 2rem;
+    }
+  }
+</style>

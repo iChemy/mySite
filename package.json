@@ -1,5 +1,5 @@
 {
-  "name": "",
+  "name": "my-site",
   "type": "module",
   "version": "0.0.1",
   "scripts": {
@@ -9,6 +9,12 @@
     "astro": "astro"
   },
   "dependencies": {
-    "astro": "^5.0.8"
+    "astro": "^5.0.5",
+    "rehype-katex": "^7.0.1",
+    "remark-math": "^6.0.0"
+  },
+  "devDependencies": {
+    "prettier": "^3.4.2",
+    "prettier-plugin-astro": "^0.14.1"
   }
 }

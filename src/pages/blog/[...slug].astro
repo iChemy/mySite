@@ -1,0 +1,171 @@
+---
+import { getCollection, render } from "astro:content";
+import Layout from "../../layouts/Layout.astro";
+import BlogHero from "../../components/BlogHero.astro";
+
+import "../../../node_modules/katex/dist/katex.min.css";
+
+// 1. コレクションエントリーごとに新しいパスを生成
+export async function getStaticPaths() {
+  const blogEntries = await getCollection("blog");
+  return blogEntries.map((entry) => ({
+    params: { slug: entry.slug },
+    props: { entry },
+  }));
+}
+// 2. テンプレートでは、プロパティからエントリーを直接取得できる
+const { entry } = Astro.props;
+const { Content, headings } = await render(entry);
+---
+
+<Layout title={entry.data.title}>
+  <BlogHero title={entry.data.title} src={entry.data.theme} />
+  <article class:list={["md-content"]}>
+    <Content />
+  </article>
+</Layout>
+
+<style>
+  .md-content {
+    max-width: 800px; /* コンテンツ幅を制限 */
+    margin: 2rem auto; /* 上下中央寄せ */
+    padding: 0 1rem; /* 横の余白 */
+    line-height: 1.8; /* 読みやすい行間 */
+    font-size: 1rem; /* ベースフォントサイズ */
+    font-family: "Georgia", serif; /* フォント設定（必要に応じて変更） */
+    color: #333; /* テキストカラー */
+  }
+
+  /* 見出し */
+  .md-content h1,
+  .md-content h2,
+  .md-content h3 {
+    font-family: "Merriweather", serif; /* 見出し専用フォント */
+    color: #222;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    line-height: 1.5;
+  }
+
+  .md-content h1 {
+    font-size: 2.2rem;
+    border-bottom: 2px solid #ddd; /* h1 の下にボーダー */
+    padding-bottom: 0.5rem;
+  }
+
+  .md-content h2 {
+    font-size: 1.8rem;
+  }
+
+  .md-content h3 {
+    font-size: 1.5rem;
+  }
+
+  /* 段落 */
+  .md-content p {
+    margin: 1rem 0;
+  }
+
+  /* リスト */
+  .md-content ul,
+  .md-content ol {
+    padding-left: 1.5rem; /* インデント */
+    margin: 1rem 0;
+  }
+
+  .md-content ul li {
+    list-style: disc; /* 黒丸リスト */
+  }
+
+  .md-content ol li {
+    list-style: decimal; /* 数字リスト */
+  }
+
+  /* 引用 */
+  .md-content blockquote {
+    border-left: 4px solid #bbb;
+    margin: 1.5rem 0;
+    padding-left: 1rem;
+    font-style: italic;
+    color: #555;
+  }
+
+  /* テーブル */
+  .md-content table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1.5rem 0;
+    font-size: 0.9rem;
+  }
+
+  .md-content table th,
+  .md-content table td {
+    border: 1px solid #ddd;
+    padding: 0.75rem;
+    text-align: left;
+  }
+
+  .md-content table th {
+    background-color: #f8f8f8;
+    font-weight: bold;
+  }
+
+  /* コード */
+  .md-content pre {
+    background-color: #f4f4f4;
+    border-radius: 4px;
+    padding: 1rem;
+    overflow-x: auto;
+  }
+
+  .md-content code {
+    background-color: #f4f4f4;
+    padding: 0.2rem 0.4rem;
+    border-radius: 4px;
+    font-family: "Courier New", Courier, monospace;
+    color: #d6336c;
+  }
+
+  /* リンク */
+  .md-content a {
+    color: #0077cc;
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    transition:
+      border-color 0.3s,
+      color 0.3s;
+  }
+
+  .md-content a:hover {
+    color: #005999;
+    border-bottom-color: #005999;
+  }
+
+  /* 画像 */
+  .md-content img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 4px;
+    margin: 1rem 0;
+  }
+
+  /* レスポンシブデザイン */
+  @media (max-width: 768px) {
+    .md-content {
+      padding: 0 0.5rem;
+      font-size: 0.9rem; /* 小さめデバイス用にフォントサイズを調整 */
+    }
+
+    .md-content h1 {
+      font-size: 1.8rem;
+    }
+
+    .md-content h2 {
+      font-size: 1.5rem;
+    }
+
+    .md-content h3 {
+      font-size: 1.3rem;
+    }
+  }
+</style>

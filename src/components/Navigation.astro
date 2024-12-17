@@ -1,0 +1,81 @@
+---
+import iChemyLogo from "../assets/iChemy.svg";
+---
+
+<nav class:list={["site-nav"]}>
+  <div class:list={["logo"]}>
+    <a href="/mySite">
+      <img src={iChemyLogo.src} alt="iChemy HomePage" />
+    </a>
+  </div>
+  <ul class:list={["links"]}>
+    <li class:list={["entry"]}><a href="/mySite">Home</a></li>
+    <li class:list={["entry"]}><a href="/mySite/blog">Blog</a></li>
+  </ul>
+</nav>
+
+<style>
+  .site-nav {
+    padding: 1rem 2rem; /* 水平の余白を広げる */
+    display: flex;
+    align-items: center;
+    justify-content: space-between; /* ロゴとリンクを左右に配置 */
+    background-color: #f8f9fa; /* ナビゲーションの背景色 */
+  }
+
+  .site-nav .logo img {
+    height: 60px; /* ロゴサイズを調整 */
+    display: block;
+  }
+
+  .site-nav .links {
+    display: flex;
+    gap: 1.5rem; /* 各リンクの間隔を調整 */
+  }
+
+  .site-nav .links .entry {
+    list-style: none; /* デフォルトのリストスタイルを無効化 */
+  }
+
+  .site-nav .links .entry a {
+    display: block;
+    padding: 0.5rem 1rem; /* リンクをクリックしやすくするために余白を拡大 */
+    text-align: center;
+    text-decoration: none; /* 下線を削除 */
+    font-size: 1rem;
+    color: #333; /* ベースのテキストカラー */
+    border-radius: 4px; /* 角を少し丸める */
+    transition:
+      background-color 0.3s,
+      color 0.3s; /* ホバー時のスムーズなエフェクト */
+  }
+
+  .site-nav .links .entry a:hover {
+    background-color: #d6d6d6; /* ホバー時の背景色 */
+  }
+
+  /* レスポンシブ対応: 小さい画面では縦並び */
+  @media (max-width: 768px) {
+    .site-nav {
+      flex-direction: column; /* 上下配置に変更 */
+      align-items: flex-start;
+      padding: 1rem; /* 水平余白を調整 */
+    }
+
+    .site-nav .logo {
+      margin-bottom: 1rem; /* ロゴとリンクの間隔を確保 */
+    }
+
+    .site-nav .links {
+      flex-direction: column; /* リンクを縦に並べる */
+      width: 100%; /* 横幅を広げる */
+      gap: 0.5rem; /* リンク間の間隔を縮小 */
+    }
+
+    .site-nav .links .entry a {
+      text-align: left; /* 左寄せ */
+      width: 100%; /* リンク全体をクリック可能に */
+      padding: 0.75rem 1rem; /* 縦方向の余白を増やす */
+    }
+  }
+</style>

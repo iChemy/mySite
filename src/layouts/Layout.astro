@@ -1,22 +1,55 @@
+---
+import Navigation from "../components/Navigation.astro";
+
+interface Props {
+  lang?: string;
+  title?: string;
+}
+
+const { lang = "en", title } = Astro.props;
+---
+
 <!doctype html>
-<html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro Basics</title>
-	</head>
-	<body>
-		<slot />
-	</body>
+<html lang={lang}>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href="/mySite/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title ? `iChemy | ${title}` : "iChemy"}</title>
+  </head>
+  <body>
+    <Navigation />
+    <main class:list={["main-container"]}>
+      <slot />
+    </main>
+  </body>
 </html>
 
 <style>
-	html,
-	body {
-		margin: 0;
-		width: 100%;
-		height: 100%;
-	}
+  html,
+  body {
+    margin: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  main.main-container {
+    max-width: 1200px; /* コンテンツ幅の最大値 */
+    margin: 2rem auto; /* 中央寄せ */
+    padding: 1rem 2rem; /* 内側余白 */
+    background-color: #fff; /* 背景を白に設定 */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* 軽いシャドウでカード風の外観 */
+    border-radius: 8px; /* 角を丸くする */
+  }
+
+  /* レスポンシブ対応 */
+  @media (max-width: 768px) {
+    main.main-container {
+      margin: 1rem; /* モバイルでは外側の余白を縮小 */
+      padding: 1rem; /* 内側余白を調整 */
+      box-shadow: none; /* モバイルではシャドウを削除 */
+      border-radius: 0; /* 角丸をなくす */
+    }
+  }
 </style>
